@@ -1,0 +1,88 @@
+# ---------------------------------------------------------------
+# BlogSpecLab (Python / Flask) .gitignore
+# ---------------------------------------------------------------
+
+# --- Secrets and local configuration ---------------------------
+# Never commit real keys. Keep a template named .env.example instead.
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+secrets/
+secrets.*
+
+# --- Local databases and runtime data --------------------------
+# The app stores data in SQLite. Do not commit local databases.
+# (Remove these lines only if you deliberately commit a sample database.)
+*.db
+*.sqlite
+*.sqlite3
+*.db-journal
+*.db-wal
+*.db-shm
+instance/
+data/*.db
+
+# --- Python bytecode and caches --------------------------------
+__pycache__/
+*.py[cod]
+*$py.class
+
+# --- Virtual environments --------------------------------------
+.venv/
+venv/
+env/
+ENV/
+
+# --- Packaging and build output --------------------------------
+build/
+dist/
+*.egg-info/
+*.egg
+.eggs/
+pip-wheel-metadata/
+wheels/
+
+# --- Test, lint, type-check, and architecture-check caches -----
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.import_linter_cache/
+.hypothesis/
+.tox/
+.nox/
+
+# --- Coverage reports ------------------------------------------
+.coverage
+.coverage.*
+coverage.xml
+htmlcov/
+
+# --- Logs and temporary files ----------------------------------
+*.log
+logs/
+*.tmp
+*.bak
+*.swp
+
+# --- Editors and IDEs ------------------------------------------
+.vscode/
+.idea/
+*.code-workspace
+
+# --- Operating system files ------------------------------------
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ---------------------------------------------------------------
+# Intentionally NOT ignored (they must stay in the repository):
+#   - uv.lock / poetry.lock / requirements lock files
+#   - pyproject.toml
+#   - .env.example
+#   - .specify/ and specs/ (Spec-Driven Development artifacts)
+#   - the agent command folder created by Spec Kit (for example .opencode/)
+#   - tests/architecture/importlinter/*.toml
+#   - docs/submission/
+# ---------------------------------------------------------------
