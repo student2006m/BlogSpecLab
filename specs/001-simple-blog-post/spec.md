@@ -8,6 +8,15 @@
 
 **Input**: User description: "We want a simple system for managing blog posts. Authors must be able to manage their own posts and editors publish them after review and approval. No post must be published without required authorization or approval."
 
+## Clarifications
+
+### Session 2026-10-13
+
+- Q: Can editors list and read all posts in `pending_review` state? → A: Yes, full review queue regardless of ownership.
+- Q: How are user accounts and roles created in v1? → A: Pre-seeded demo author/editor accounts; no self-registration or user management in v1.
+- Q: Can an editor edit post content during review, or only approve/reject? → A: Editor MAY revise title/content of a `pending_review` post and then publish; edits are recorded in history.
+- Q: Is recording a reason mandatory for rejection and unpublishing? → A: Yes; reject/unpublish requests without a recorded reason are rejected.
+
 ## User Scenarios & Testing *(mandatory)*
 
 ### User Story 1 - Author manages own posts (Priority: P1)
@@ -39,6 +48,7 @@ An author submits an owned post for review; an editor reviews it and either appr
 
 1. **Given** an author owns a draft post, **When** the author submits it for review, **Then** its state changes to pending review and it is no longer editable as a plain draft.
 2. **Given** a post pending review, **When** an editor approves and publishes it, **Then** its state becomes published and the publish decision and actor are recorded.
+2b. **Given** a post pending review, **When** an editor revises its title/content and then approves it, **Then** the post is published with the revised content and the edit is recorded in history with actor and timestamp.
 3. **Given** a post pending review, **When** an editor rejects it, **Then** its state returns to draft with a recorded rejection reason.
 4. **Given** a published post, **When** any consumer — including an anonymous (unauthenticated) user — requests the published listing or the post itself, **Then** the post is included with its final approved title and content.
 
@@ -84,14 +94,16 @@ The system prevents publishing without required approval and prevents users from
 - **FR-006**: System MUST support explicit post states `draft`, `pending_review`, and `published`; transitions MUST follow: `draft -> pending_review -> published`, plus `pending_review -> draft` on rejection and `published -> draft` on editor unpublish.
 - **FR-007**: System MUST allow an author to submit an owned draft post for review, moving it to `pending_review`.
 - **FR-008**: System MUST allow a user in the editor role to approve and publish a post that is in `pending_review`. An editor MUST NOT approve or publish a post they own (separation of duties); self-approval MUST be rejected.
-- **FR-009**: System MUST allow a user in the editor role to reject a post in `pending_review` back to `draft` with a recorded reason.
-- **FR-009b**: System MUST allow a user in the editor role to unpublish a `published` post back to `draft` with a recorded reason; the post MUST immediately leave the public listing.
+- **FR-008b**: System MUST allow a user in the editor role to list and read all posts in `pending_review` state (review queue), regardless of ownership.
+- **FR-009**: System MUST allow a user in the editor role to reject a post in `pending_review` back to `draft` with a recorded reason. A rejection reason is mandatory; requests without one MUST be rejected.
+- **FR-008c**: System MUST allow a user in the editor role to edit title/content of a post in `pending_review` state before approving/publishing it; each editor edit MUST be recorded in history with actor and timestamp. A user MUST NOT edit their own post under the editor role (same separation of duties as FR-008).
+- **FR-009b**: System MUST allow a user in the editor role to unpublish a `published` post back to `draft` with a recorded reason; the post MUST immediately leave the public listing. An unpublish reason is mandatory; requests without one MUST be rejected.
 - **FR-010**: System MUST reject any publish transition that does not originate from `pending_review` with editor approval; no other path MAY set state to `published`.
-- **FR-011**: System MUST enforce ownership on every author-scoped operation; operations on posts owned by another user MUST be rejected.
+- **FR-011**: System MUST enforce ownership on every author-scoped operation; operations on posts owned by another user MUST be rejected, except editor review-queue actions (`FR-008`, `FR-008b`, `FR-008c`, `FR-009`, `FR-009b`) which operate across ownership.
 - **FR-012**: System MUST enforce role checks on the trusted path (`Application` layer per Constitution): editor-only actions MUST be rejected for non-editors.
 - **FR-013**: System MUST validate title and content on create/update/submit and MUST reject empty or whitespace-only values with `400 Bad Request`. No maximum length is enforced in v1.
 - **FR-014**: System MUST NOT leak the existence of other users' unpublished posts: requests for non-existent posts and requests for unpublished posts owned by another user MUST both receive `404 Not Found`. Insufficient-role actions on a caller's own post MUST receive `403 Forbidden`; unauthenticated requests to protected operations MUST receive `401 Unauthorized`.
-- **FR-015**: System MUST authenticate users with username/password plus session and MUST make caller identity and roles available for every operation. A single user MAY hold both `author` and `editor` roles. User/credential storage technology is NOT selected by this spec.
+- **FR-015**: System MUST authenticate users with username/password plus session and MUST make caller identity and roles available for every operation. A single user MAY hold both `author` and `editor` roles. In v1, accounts are pre-seeded demo author/editor accounts; self-registration and user management are out of scope. User/credential storage technology is NOT selected by this spec.
 - **FR-016**: System MUST persist posts and their state transitions across restarts via operational storage selected later; this spec does NOT select database or `ORM`.
 
 ### Key Entities
