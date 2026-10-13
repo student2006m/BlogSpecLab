@@ -1,94 +1,94 @@
-# راهنمای Agent در Repository — BlogSpecLab
+# Agent Guide in Repository — BlogSpecLab
 
-> این فایل نقشهٔ کار عملیاتی `OpenCode` در این `Repository` است. قواعد پایدار معماری را تکرار نمی‌کند؛ برای آن‌ها به `Constitution` مراجعه کن.
+> This file is the operational map for `OpenCode` in this `Repository`. It does not repeat stable architecture rules; consult the `Constitution` for those.
 
-## ۱. معرفی کوتاه پروژه
+## 1. Project Overview
 
-`BlogSpecLab` یک پروژهٔ آموزشی `Python` / `Flask` روی `Python 3.12` یا جدیدتر است که با رویکرد `Specification-Driven Development` و `Spec Kit` توسعه پیدا می‌کند.
+`BlogSpecLab` is an educational `Python` / `Flask` project on `Python 3.12` or newer, developed with `Specification-Driven Development` and `Spec Kit`.
 
-پروژه ابتدا به‌صورت یک سامانهٔ معمولی مدیریت و انتشار پست توسعه داده می‌شود و قابلیت‌های هوش مصنوعی بعداً و فقط بر اساس نیازمندی‌های تأییدشده به آن اضافه خواهند شد.
+The project is first developed as a plain post management and publishing system; `AI` capabilities are added later and only on the basis of approved requirements.
 
-## ۲. منابع مرجع پروژه
+## 2. Project Reference Sources
 
-پیش از انجام تغییرات مرتبط، این منابع را بررسی کن:
+Before making related changes, consider these sources:
 
 ### Constitution
 
-مرجع اصلی اصول پایدار پروژه:
+The authoritative source of stable project principles:
 
 `.specify/memory/constitution.md`
 
-پیش از تصمیم‌های معماری، ایجاد پکیج جدید، تغییر مرزهای مسئولیت یا تغییر جهت وابستگی‌ها، این فایل باید بررسی شود.
+Review this file before architecture decisions, creating a new package, changing responsibility boundaries, or changing dependency direction.
 
-قواعد `Constitution` در این فایل تکرار نمی‌شوند؛ آن فایل `Source of Truth` است.
+Do not duplicate `Constitution` rules in this file; that file is the `Source of Truth`.
 
 ### Feature Specifications
 
-`Specification`ها و سایر `Artifact`های `Feature`ها از طریق ساختار ایجادشده توسط `Spec Kit` نگهداری خواهند شد.
+`Specification`s and other `Feature` artifacts are kept through the structure created by `Spec Kit`.
 
-هنگام کار روی یک `Feature`، ابتدا `Artifact`های مربوط به همان `Feature` را پیدا و مطالعه کن.
+When working on a `Feature`, first locate and read the artifacts of that same `Feature`.
 
-اگر تغییر رفتاری درخواست شده ولی `Specification` مربوطه وجود ندارد یا تغییر موردنظر در آن تعریف نشده است، بدون هماهنگی مستقیم وارد پیاده‌سازی رفتار جدید نشو.
+If a behavioral change is requested but the corresponding `Specification` is missing or does not define the requested change, do not implement the new behavior without explicit coordination.
 
-## ۳. روش توسعه
+## 3. Development Workflow
 
-`OpenCode` هنگام کار در این `Repository` این `Workflow` را رعایت کن:
+`OpenCode` MUST follow this `Workflow` when working in this `Repository`:
 
-1. ابتدا محدودهٔ درخواست کاربر را مشخص کن.
-2. `Artifact`های `SDD` مرتبط با همان تغییر را بررسی کن.
-3. در صورت ارتباط تصمیم با اصول پروژه، `Constitution` را بررسی کن.
-4. فقط تغییرات موردنیاز همان گام را انجام بده.
-5. بدون درخواست کاربر وارد `Feature` یا مرحلهٔ بعدی `SDD` نشو.
-6. هنگام وجود ابهام مؤثر بر رفتار یا معماری، آن را گزارش کن و از حدس زدن تصمیم‌های مهم کسب‌وکار خودداری کن.
-7. پس از پیاده‌سازی، بررسی‌ها و آزمون‌های متناسب با تغییر را اجرا کن.
-8. نتیجه، فایل‌های تغییرکرده، آزمون‌های اجراشده و مشکل‌های باقی‌مانده را به‌صورت خلاصه گزارش کن.
+1. Clarify the scope of the user request.
+2. Review the `SDD` artifacts relevant to that change.
+3. If the decision touches project principles, review the `Constitution`.
+4. Make only the changes required for that same step.
+5. Do not move to the next `Feature` or `SDD` stage without a user request.
+6. When facing ambiguity that affects behavior or architecture, report it and do not guess important business decisions.
+7. After implementation, run checks and tests proportionate to the change.
+8. Report a summary of the outcome, changed files, executed tests, and remaining issues.
 
-## ۴. قواعد کار با Repository
+## 4. Repository Working Rules
 
-- فایل‌ها و پکیج‌هایی را که برای گام فعلی لازم نیستند ایجاد نکن.
-- از `Overengineering` و ایجاد `Abstraction`های زودهنگام خودداری کن.
-- `Package`، `SDK` یا `Framework` جدید را بدون نیاز مشخص اضافه نکن و وابستگی جدید را بدون هماهنگی به فایل مدیریت وابستگی‌ها (مانند `pyproject.toml`) اضافه نکن.
-- بدون نیازمندی تأییدشده قابلیت جدید ایجاد نکن.
-- `Business Logic` را در `Endpoint`، `Route` یا `View Function`، `Infrastructure`، `Prompt` یا `Adapter` خارجی تکرار نکن.
-- هنگام تغییر ساختار پکیج‌ها، جهت `Import`ها و وابستگی‌ها را با `Constitution` کنترل کن.
-- فایل‌های تولیدشده توسط `Spec Kit` را بدون دلیل و بدون ارتباط با `Workflow` جاری تغییر نده.
-- `Secret`، `API Key` و `Credential` را در کد، مستندات یا `Log` قرار نده.
-- اگر درخواست کاربر با `Constitution` یا `Specification` تأییدشده تعارض دارد، قبل از انجام تغییر تعارض را گزارش کن.
+- Do not create files or packages unneeded for the current step.
+- Avoid `Overengineering` and premature `Abstraction`s.
+- Do not add a new `Package`, `SDK`, or `Framework` without a clear need, and do not add a new dependency to the dependency-management file (e.g. `pyproject.toml`) without coordination.
+- Do not create a new feature without an approved requirement.
+- Do not duplicate `Business Logic` in an `Endpoint`, `Route` or `View Function`, `Infrastructure`, `Prompt`, or external `Adapter`.
+- When changing package structure, validate `Import` and dependency direction against the `Constitution`.
+- Do not modify files generated by `Spec Kit` without reason and without connection to the current `Workflow`.
+- Do not place `Secret`s, `API Key`s, or `Credential`s in code, documentation, or `Log`s.
+- If a user request conflicts with the `Constitution` or an approved `Specification`, report the conflict before making the change.
 
-## ۵. قواعد کار با Coding Agent
+## 5. Coding Agent Rules
 
-- تغییرات باید کوچک، قابل بررسی و محدود به `Scope` درخواست باشند.
-- `OpenCode` نباید به‌صورت خودکار مرحلهٔ بعدی پروژه را اجرا کند.
-- تولید موفق کد یا `Artifact` به‌معنای تأیید آن نیست.
-- برای تصمیم‌های مهم معماری، گزینه‌ها و پیامدهای مهم باید پیش از تغییر گزارش شوند.
-- از بازنویسی فایل‌های سالم و نامرتبط خودداری کن.
-- در صورت وجود چند راه‌حل، راه‌حل ساده‌تر و سازگار با `Constitution` ترجیح داده شود؛ مگر اینکه نیازمندی خلاف آن را ایجاب کند.
+- Changes MUST be small, reviewable, and limited to the request `Scope`.
+- `OpenCode` MUST NOT automatically execute the next project stage.
+- Successful generation of code or an artifact does NOT mean it is approved.
+- For important architecture decisions, options and key consequences MUST be reported before the change.
+- Do not rewrite healthy, unrelated files.
+- When several solutions exist, prefer the simpler one compatible with the `Constitution`, unless the requirement dictates otherwise.
 
-## ۶. زبان و شیوهٔ مستندسازی
+## 6. Language and Documentation Style
 
-- `Artifact`های متنی پروژه و توضیحات مستندات به زبان فارسی نوشته شوند.
-- نام کلاس‌ها، توابع، متدها، ماژول‌ها، پکیج‌ها و سایر `Identifier`های کد به انگلیسی باشند.
-- اصطلاحات فنی رایج در صورت نیاز می‌توانند به انگلیسی باقی بمانند.
-- کد و نام‌گذاری فنی نباید فارسی شوند.
-- توضیحات باید دقیق و مختصر باشند و از مستندسازی تکراری جلوگیری شود.
+- All project textual artifacts and documentation MUST be written in English.
+- Class, function, method, module, package names, and all other code `Identifier`s MUST be in English.
+- Common technical terms MAY remain in English where appropriate.
+- Code and technical naming MUST NOT be localized.
+- Descriptions MUST be precise and concise; avoid duplicated documentation.
 
-## ۷. Build و Test
+## 7. Build and Test
 
-در نسخهٔ فعلی `Repository` هنوز پروژهٔ `Python`، فایل `pyproject.toml` و پروژهٔ آزمون ایجاد نشده‌اند.
+The current `Repository` does not yet contain a `Python` project, a `pyproject.toml` file, or a test project.
 
-بنابراین فعلاً هیچ دستور فرضی برای نصب وابستگی‌ها، اجرای `Flask`، `Lint` یا `Test` در این فایل ثبت نشده است.
+Therefore no assumed commands for installing dependencies, running `Flask`, `Lint`, or `Test` are recorded in this file.
 
-پس از ایجاد پروژه، ساختار پکیج‌ها و آزمون‌ها، دستورات معتبر نصب وابستگی‌ها، اجرا، `Lint` و `Test` باید به این بخش اضافه شوند.
+Once the project is created, the package and test structure plus the valid commands for dependency installation, run, `Lint`, and `Test` MUST be added to this section.
 
-`OpenCode` نباید دستورهایی را برای فایل‌ها یا پکیج‌هایی که هنوز وجود ندارند جعل کند.
+`OpenCode` MUST NOT invent commands for files or packages that do not exist yet.
 
-## ۸. تکامل AGENTS.md
+## 8. Evolution of AGENTS.md
 
-این فایل یک سند عملیاتی زنده است و باید همراه `Repository` تکامل پیدا کند.
+This file is a living operational document and MUST evolve with the `Repository`.
 
-اما:
+However:
 
-- قواعد پایدار معماری نباید از `Constitution` به این فایل منتقل یا در آن کپی شوند.
-- جزئیات یک `Feature` نباید در این فایل قرار بگیرند.
-- مستندات تخصصی آینده باید در فایل مناسب خودشان نگهداری شوند و در صورت نیاز از این فایل به آن‌ها ارجاع داده شود.
-- از تبدیل این فایل به یک سند بزرگ و شامل تمام دانش پروژه خودداری شود.
+- Stable architecture rules MUST NOT be moved or copied from the `Constitution` into this file.
+- Details of a single `Feature` MUST NOT be placed in this file.
+- Future specialized documentation MUST live in its own appropriate file and be referenced from here when needed.
+- Do not turn this file into a large document containing all project knowledge.
