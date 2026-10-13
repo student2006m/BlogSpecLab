@@ -41,8 +41,16 @@ Conventions: JSON request/response bodies; session cookie for authenticated call
 
 ## Error body
 
+Content type `application/problem+json` (RFC 9457):
+
 ```json
-{ "error": "<machine-readable code>", "message": "<human-readable detail>" }
+{
+  "type": "about:blank",
+  "title": "<short human-readable summary>",
+  "status": 404,
+  "code": "<stable machine-readable code, e.g. POST_NOT_FOUND>",
+  "detail": "<human-readable detail>"
+}
 ```
 
-No existence information about other users' unpublished posts is leaked through status codes or messages.
+`code` is stable per failure class. Neither status codes, `detail`, nor messages leak the existence of other users' unpublished posts, and no internals, stack traces, or credentials are exposed.

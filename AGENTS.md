@@ -22,6 +22,16 @@ Review this file before architecture decisions, creating a new package, changing
 
 Do not duplicate `Constitution` rules in this file; that file is the `Source of Truth`.
 
+### Technical Baseline
+
+The reference for established, project-wide technical decisions:
+
+`docs/architecture/technical-baseline.md`
+
+Review this file before planning, adding a new integration, or making a project-wide technical decision.
+
+Decisions recorded in the Baseline MUST NOT be re-decided or replaced without reason and a new architecture decision.
+
 ### Feature Specifications
 
 `Specification`s and other `Feature` artifacts are kept through the structure created by `Spec Kit`.
