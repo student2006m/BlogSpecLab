@@ -53,16 +53,16 @@
 
 > **NOTE: Write these tests FIRST, ensure they FAIL before implementation**
 
-- [ ] T012 [P] [US1] Domain unit tests for Post validation ("MUST be non-empty after trimming; no max length in v1") and states in tests/unit/test_post.py
-- [ ] T013 [P] [US1] Application tests for author use cases with fake repository in tests/application/test_author_posts.py
-- [ ] T014 [P] [US1] HTTP contract tests for author endpoints (201/200/204/400/401/404 per contracts/api.md) in tests/http/test_author_posts.py
+- [X] T012 [P] [US1] Domain unit tests for Post validation ("MUST be non-empty after trimming; no max length in v1") and states in tests/unit/test_post.py
+- [X] T013 [P] [US1] Application tests for author use cases with fake repository in tests/application/test_author_posts.py
+- [X] T014 [P] [US1] HTTP contract tests for author endpoints (201/200/204/400/401/404 per contracts/api.md) in tests/http/test_author_posts.py
 
 ### Implementation for User Story 1
 
-- [ ] T015 [P] [US1] Implement Post entity, states (draft/pending_review/published), and ownership invariant ("ownership never changes") in src/blogspeclab/core/domain/post.py
-- [ ] T016 [P] [US1] Implement User entity with roles (author/editor, "MAY hold both") in src/blogspeclab/core/domain/user.py
-- [ ] T017 [US1] Implement author use cases (create/get/list-own/update/delete/submit, draft-only guards) in src/blogspeclab/core/application/author_posts.py (depends on T015, T016)
-- [ ] T018 [US1] Implement author routes (POST/GET/PATCH/DELETE /api/posts, POST /api/posts/<id>/submit) in src/blogspeclab/endpoints/api/posts.py (depends on T017)
+- [X] T015 [P] [US1] Implement Post entity, states (draft/pending_review/published), and ownership invariant ("ownership never changes") in src/blogspeclab/core/domain/post.py
+- [X] T016 [P] [US1] Implement User entity with roles (author/editor, "MAY hold both") in src/blogspeclab/core/domain/user.py
+- [X] T017 [US1] Implement author use cases (create/get/list-own/update/delete/submit, draft-only guards) in src/blogspeclab/core/application/author_posts.py (depends on T015, T016)
+- [X] T018 [US1] Implement author routes (POST/GET/PATCH/DELETE /api/posts, POST /api/posts/<id>/submit) in src/blogspeclab/endpoints/api/posts.py (depends on T017)
 
 **Checkpoint**: At this point, User Story 1 should be fully functional and testable independently
 
