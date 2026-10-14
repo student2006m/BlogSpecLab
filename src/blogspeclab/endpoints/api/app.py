@@ -19,6 +19,8 @@ from flask import Flask, current_app, g
 
 from blogspeclab.endpoints.api import errors
 from blogspeclab.endpoints.api import posts as posts_routes
+from blogspeclab.endpoints.api import public as public_routes
+from blogspeclab.endpoints.api import review as review_routes
 from blogspeclab.infra.data_access import db
 
 DATABASE_PATH_SETTINGS = ("DATABASE_PATH", "BLOGSPECLAB_DATABASE_PATH")
@@ -53,6 +55,8 @@ def create_app(config: Mapping[str, Any] | None = None) -> Flask:
 
     errors.register_error_handlers(app)
     app.register_blueprint(posts_routes.posts_bp, url_prefix="/api")
+    app.register_blueprint(review_routes.review_bp, url_prefix="/api")
+    app.register_blueprint(public_routes.public_bp, url_prefix="/api")
 
     @app.teardown_appcontext
     def _close_connection(_error: BaseException | None = None) -> None:

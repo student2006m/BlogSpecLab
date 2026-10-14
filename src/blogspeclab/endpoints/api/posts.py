@@ -45,7 +45,7 @@ def _map_errors(func):
     except use_cases.InvalidInputError as exc:
         raise http_errors.BadRequestError(str(exc)) from exc
     except use_cases.NotFoundError as exc:
-        raise http_errors.NotFoundError(str(exc)) from exc
+        raise http_errors.PostNotFoundError(str(exc)) from exc
     except use_cases.ForbiddenError as exc:
         raise http_errors.ForbiddenError(str(exc)) from exc
 

@@ -51,6 +51,11 @@ class NotFoundError(AppError):
     title = "Not Found"
 
 
+class PostNotFoundError(NotFoundError):
+    code = "POST_NOT_FOUND"
+    title = "Post Not Found"
+
+
 class MethodNotAllowedError(AppError):
     status = 405
     code = "METHOD_NOT_ALLOWED"

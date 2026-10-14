@@ -86,6 +86,47 @@ class Post:
         """Guard author deletion: draft only."""
         self._require_state(DRAFT, "delete")
 
+    def revise_by_editor(
+        self, editor_id: int, title: str, content: str, now: str
+    ) -> None:
+        """Editor revision of a pending post. Never the owner's own post."""
+        self._require_state(PENDING_REVIEW, "revise")
+        self._reject_self_approval(editor_id, "revise")
+        self.title = _require_non_empty("title", title)
+        self.content = _require_non_empty("content", content)
+        self.updated_at = now
+
+    def approve(self, approver_id: int, now: str) -> None:
+        """Approve a pending post: moves directly to published.
+
+        Approve and publish are one operation, never two separate steps.
+        Self-approval is rejected here and again in Application.
+        """
+        self._require_state(PENDING_REVIEW, "approve")
+        self._reject_self_approval(approver_id, "approve")
+        self.state = PUBLISHED
+        self.updated_at = now
+
+    def reject(self, reason: str, now: str) -> None:
+        """Reject a pending post back to draft. Reason is mandatory."""
+        self._require_state(PENDING_REVIEW, "reject")
+        _require_non_empty("reason", reason)
+        self.state = DRAFT
+        self.updated_at = now
+
+    def unpublish(self, reason: str, now: str) -> None:
+        """Unpublish a published post back to draft. Reason is mandatory."""
+        self._require_state(PUBLISHED, "unpublish")
+        _require_non_empty("reason", reason)
+        self.state = DRAFT
+        self.updated_at = now
+
+    def _reject_self_approval(self, actor_id: int, action: str) -> None:
+        if actor_id == self.owner_id:
+            raise StateError(
+                f"Cannot {action} your own post: separation of duties."
+            )
+
     def _require_state(self, expected: str, action: str) -> None:
         if self.state != expected:
             raise StateError(

@@ -107,3 +107,54 @@ def test_user_has_role():
     user = User(id=1, username="a", roles=frozenset({"author", "editor"}))
     assert user.has_role("author") and user.has_role("editor")
     assert not user.has_role("reviewer")
+
+
+def _pending_post(owner_id=1):
+    post = _make_post(owner_id=owner_id)
+    post.submit("2026-10-14T01:00:00+00:00")
+    return post
+
+
+def test_approve_publishes_directly():
+    post = _pending_post()
+    post.approve(9, "2026-10-14T02:00:00+00:00")
+    assert post.state == PUBLISHED
+
+
+def test_approve_and_revise_reject_self_approval():
+    post = _pending_post(owner_id=5)
+    with pytest.raises(StateError):
+        post.approve(5, "2026-10-14T02:00:00+00:00")
+    with pytest.raises(StateError):
+        post.revise_by_editor(5, "X", "Y", "2026-10-14T02:00:00+00:00")
+
+
+def test_approve_draft_is_forbidden():
+    with pytest.raises(StateError):
+        _make_post().approve(9, "2026-10-14T02:00:00+00:00")
+
+
+def test_revise_by_editor_keeps_pending_and_owner():
+    post = _pending_post(owner_id=5)
+    post.revise_by_editor(9, "Fixed", "Body", "2026-10-14T02:00:00+00:00")
+    assert (post.title, post.state, post.owner_id) == (
+        "Fixed", PENDING_REVIEW, 5)
+
+
+def test_reject_and_unpublish_require_reason():
+    post = _pending_post()
+    with pytest.raises(ValidationError):
+        post.reject("  ", "2026-10-14T02:00:00+00:00")
+    post.reject("Too short", "2026-10-14T02:00:00+00:00")
+    assert post.state == DRAFT
+    published = _pending_post()
+    published.approve(9, "2026-10-14T02:00:00+00:00")
+    with pytest.raises(ValidationError):
+        published.unpublish("", "2026-10-14T03:00:00+00:00")
+    published.unpublish("Mistake", "2026-10-14T03:00:00+00:00")
+    assert published.state == DRAFT
+
+
+def test_unpublish_draft_is_forbidden():
+    with pytest.raises(StateError):
+        _make_post().unpublish("R", "2026-10-14T02:00:00+00:00")

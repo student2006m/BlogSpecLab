@@ -78,16 +78,16 @@
 
 > **NOTE: Write these tests FIRST, ensure they FAIL before implementation**
 
-- [ ] T019 [P] [US2] Application tests for review queue, approve, reject/unpublish with mandatory reason, editor revise, separation of duties in tests/application/test_review.py
-- [ ] T020 [P] [US2] HTTP contract tests for review and public endpoints per contracts/api.md in tests/http/test_review.py
-- [ ] T021 [P] [US2] SQLite repository tests on temp DB (transitions, append-only history with actor/timestamp) in tests/application/test_repositories.py
+- [X] T019 [P] [US2] Application tests for review queue, approve, reject/unpublish with mandatory reason, editor revise, separation of duties in tests/application/test_review.py
+- [X] T020 [P] [US2] HTTP contract tests for review and public endpoints per contracts/api.md in tests/http/test_review.py
+- [X] T021 [P] [US2] SQLite repository tests on temp DB (transitions, append-only history with actor/timestamp) in tests/application/test_repositories.py
 
 ### Implementation for User Story 2
 
-- [ ] T022 [US2] Implement review transitions and Decision record ("reject/unpublish always carry a non-empty reason") in src/blogspeclab/core/domain/post.py (depends on T015)
-- [ ] T023 [US2] Implement review use cases (queue/approve/reject/revise/unpublish/list-published, no self-approval) in src/blogspeclab/core/application/review.py (depends on T022)
-- [ ] T024 [P] [US2] Implement editor routes (review-queue/revise/approve/reject/unpublish) in src/blogspeclab/endpoints/api/review.py (depends on T023)
-- [ ] T025 [P] [US2] Implement anonymous published routes (GET /api/published) in src/blogspeclab/endpoints/api/public.py (depends on T023)
+- [X] T022 [US2] Implement review transitions and Decision record ("reject/unpublish always carry a non-empty reason") in src/blogspeclab/core/domain/post.py (depends on T015)
+- [X] T023 [US2] Implement review use cases (queue/approve/reject/revise/unpublish/list-published, no self-approval) in src/blogspeclab/core/application/review.py (depends on T022)
+- [X] T024 [P] [US2] Implement editor routes (review-queue/revise/approve/reject/unpublish) in src/blogspeclab/endpoints/api/review.py (depends on T023)
+- [X] T025 [P] [US2] Implement anonymous published routes (GET /api/published) in src/blogspeclab/endpoints/api/public.py (depends on T023)
 
 **Checkpoint**: At this point, User Stories 1 AND 2 should both work independently
 
