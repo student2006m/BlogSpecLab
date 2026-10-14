@@ -30,13 +30,15 @@ def db_module():
 
 
 @pytest.fixture()
-def flask_app():
+def flask_app(tmp_path: Path):
     """Flask application built by the Phase 2 application factory."""
     try:
         from blogspeclab.endpoints.api.app import create_app
     except ImportError as exc:
         pytest.skip(f"Phase 2 module not implemented yet: {exc}")
-    return create_app({"TESTING": True})
+    return create_app(
+        {"TESTING": True, "DATABASE_PATH": str(tmp_path / "app.db")}
+    )
 
 
 @pytest.fixture()

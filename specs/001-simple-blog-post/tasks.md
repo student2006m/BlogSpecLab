@@ -30,14 +30,14 @@
 
 **⚠️ CRITICAL**: No user story work can begin until this phase is complete
 
-- [ ] T004 Create SQLite schema and connection helper (posts, users, decisions tables) in src/blogspeclab/infra/data_access/db.py
-- [ ] T005 [P] Define ports (PostRepository, UserStore, PasswordHasher, Clock) in src/blogspeclab/core/application/ports.py
-- [ ] T006 Implement SQLite repositories behind ports in src/blogspeclab/infra/data_access/repositories.py (depends on T004, T005)
-- [ ] T007 Implement env-based demo-user seeding in src/blogspeclab/infra/data_access/seed.py (depends on T004, T006)
-- [ ] T008 Create Flask application factory with dependency composition in src/blogspeclab/endpoints/api/app.py (depends on T006, T007)
-- [ ] T009 Implement centralized RFC 9457 problem+json error handlers in src/blogspeclab/endpoints/api/errors.py (depends on T008)
-- [ ] T010 Implement session/current-user loader (id + roles into request context) in src/blogspeclab/endpoints/api/auth.py (depends on T005, T008)
-- [ ] T011 [P] Implement ast-based import-rule test asserting Constitution §II.1–5 in tests/architecture/test_import_rules.py
+- [X] T004 Create SQLite schema and connection helper (posts, users, decisions tables) in src/blogspeclab/infra/data_access/db.py
+- [X] T005 [P] Define ports (PostRepository, UserStore, PasswordHasher, Clock) in src/blogspeclab/core/application/ports.py
+- [X] T006 Implement SQLite repositories behind ports in src/blogspeclab/infra/data_access/repositories.py (depends on T004, T005)
+- [X] T007 Implement env-based demo-user seeding in src/blogspeclab/infra/data_access/seed.py (depends on T004, T006)
+- [X] T008 Create Flask application factory with dependency composition in src/blogspeclab/endpoints/api/app.py (depends on T006, T007)
+- [X] T009 Implement centralized RFC 9457 problem+json error handlers in src/blogspeclab/endpoints/api/errors.py (depends on T008)
+- [X] T010 Implement session/current-user loader (id + roles into request context) in src/blogspeclab/endpoints/api/auth.py (depends on T005, T008)
+- [X] T011 [P] Implement ast-based import-rule test asserting Constitution §II.1–5 in tests/architecture/test_import_rules.py
 
 **Checkpoint**: Foundation ready - user story implementation can now begin in parallel
 
