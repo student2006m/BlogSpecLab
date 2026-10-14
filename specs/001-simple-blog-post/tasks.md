@@ -18,9 +18,9 @@
 
 **Purpose**: Project initialization and basic structure
 
-- [ ] T001 Create pyproject.toml (PEP 621, requires-python >=3.12, runtime Flask, dev pytest) in pyproject.toml
-- [ ] T002 [P] Create src package skeleton __init__.py files in src/blogspeclab/__init__.py, src/blogspeclab/core/__init__.py, src/blogspeclab/core/domain/__init__.py, src/blogspeclab/core/application/__init__.py, src/blogspeclab/infra/__init__.py, src/blogspeclab/infra/data_access/__init__.py, src/blogspeclab/endpoints/__init__.py, src/blogspeclab/endpoints/api/__init__.py
-- [ ] T003 [P] Create tests skeleton and shared fixtures (temp SQLite, Flask test client, demo users) in tests/conftest.py
+- [X] T001 Create pyproject.toml (PEP 621, requires-python >=3.12, runtime Flask, dev pytest) in pyproject.toml
+- [X] T002 [P] Create src package skeleton __init__.py files in src/blogspeclab/__init__.py, src/blogspeclab/core/__init__.py, src/blogspeclab/core/domain/__init__.py, src/blogspeclab/core/application/__init__.py, src/blogspeclab/infra/__init__.py, src/blogspeclab/infra/data_access/__init__.py, src/blogspeclab/endpoints/__init__.py, src/blogspeclab/endpoints/api/__init__.py
+- [X] T003 [P] Create tests skeleton and shared fixtures (temp SQLite, Flask test client, demo users) in tests/conftest.py
 
 ---
 
