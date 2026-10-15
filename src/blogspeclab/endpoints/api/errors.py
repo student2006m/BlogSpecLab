@@ -56,6 +56,12 @@ class PostNotFoundError(NotFoundError):
     title = "Post Not Found"
 
 
+class InternalError(AppError):
+    status = 500
+    code = "INTERNAL_ERROR"
+    title = "Internal Server Error"
+
+
 class MethodNotAllowedError(AppError):
     status = 405
     code = "METHOD_NOT_ALLOWED"
@@ -95,3 +101,11 @@ def register_error_handlers(app: Flask) -> None:
     @app.errorhandler(405)
     def _handle_method_not_allowed(_error: Any) -> tuple[Any, int]:
         return problem_response(MethodNotAllowedError("Method not allowed."))
+
+    @app.errorhandler(Exception)
+    def _handle_unexpected(_error: Any) -> tuple[Any, int]:
+        # Last resort: never leak tracebacks or internals; specific handlers
+        # above (AppError, 404, 405) take precedence for known failures.
+        return problem_response(
+            InternalError("An unexpected error occurred.")
+        )

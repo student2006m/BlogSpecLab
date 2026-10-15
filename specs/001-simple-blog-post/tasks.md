@@ -103,14 +103,14 @@
 
 > **NOTE: Write these tests FIRST, ensure they FAIL before implementation**
 
-- [ ] T026 [P] [US3] Application tests for cross-author 404, direct-publish rejection, non-editor 403 in tests/application/test_authorization.py
-- [ ] T027 [P] [US3] HTTP tests for 401/403/404 mapping, self-approval 403, problem+json shape in tests/http/test_authorization.py
-- [ ] T028 [P] [US3] Security unit tests for pbkdf2 verification and env-only secrets in tests/unit/test_security.py
+- [X] T026 [P] [US3] Application tests for cross-author 404, direct-publish rejection, non-editor 403 in tests/application/test_authorization.py
+- [X] T027 [P] [US3] HTTP tests for 401/403/404 mapping, self-approval 403, problem+json shape in tests/http/test_authorization.py
+- [X] T028 [P] [US3] Security unit tests for pbkdf2 verification and env-only secrets in tests/unit/test_security.py
 
 ### Implementation for User Story 3
 
-- [ ] T029 [US3] Harden status-code mapping (401/403/404) on all routes with problem+json bodies in src/blogspeclab/endpoints/api/errors.py (depends on T009)
-- [ ] T030 [US3] Audit src/blogspeclab/endpoints/api/ for business-logic leaks and move violations into Application (files under src/blogspeclab/endpoints/api/)
+- [X] T029 [US3] Harden status-code mapping (401/403/404) on all routes with problem+json bodies in src/blogspeclab/endpoints/api/errors.py (depends on T009)
+- [X] T030 [US3] Audit src/blogspeclab/endpoints/api/ for business-logic leaks and move violations into Application (files under src/blogspeclab/endpoints/api/)
 
 **Checkpoint**: All user stories should now be independently functional
 

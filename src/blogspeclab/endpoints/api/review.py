@@ -35,8 +35,9 @@ review_bp = Blueprint("review", __name__)
 
 
 def _editor_context() -> tuple[Any, Any, dict[str, Any]]:
-    # Local import: app.py imports this module for blueprint registration,
-    # so a top-level import would be circular (same package, still a cycle).
+    # Authentication only: the editor-role decision lives in the Application
+    # use cases, which re-check the server-side record per call. A non-editor
+    # therefore still receives 403, enforced in exactly one place.
     from blogspeclab.endpoints.api.app import get_connection
 
     connection = get_connection()
@@ -44,10 +45,6 @@ def _editor_context() -> tuple[Any, Any, dict[str, Any]]:
     actor = load_current_user(store)
     if actor is None:
         raise http_errors.UnauthorizedError("Authentication is required.")
-    if "editor" not in {
-        role.strip() for role in actor.get("roles", "").split(",")
-    }:
-        raise http_errors.ForbiddenError("The editor role is required.")
     return connection, SQLitePostRepository(connection), actor
 
 
@@ -65,7 +62,10 @@ def _map_errors(func) -> Any:
 @review_bp.get("/review-queue")
 def review_queue() -> tuple[Any, int]:
     _, repo, actor = _editor_context()
-    return jsonify(review_cases.list_review_queue(repo, actor)), 200
+    return (
+        jsonify(_map_errors(lambda: review_cases.list_review_queue(repo, actor))),
+        200,
+    )
 
 
 @review_bp.patch("/posts/<int:post_id>/revise")
