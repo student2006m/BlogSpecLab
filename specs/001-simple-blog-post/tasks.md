@@ -120,10 +120,10 @@
 
 **Purpose**: Improvements that affect multiple user stories
 
-- [ ] T031 [P] Verify type hints on all public layer boundaries (contracts, use-case inputs/outputs) in files under src/blogspeclab/core/
-- [ ] T032 [P] Validate quickstart.md end-to-end flow per specs/001-simple-blog-post/quickstart.md
-- [ ] T033 Update AGENTS.md §7 with real install/run/test commands in AGENTS.md
-- [ ] T034 Run full pytest suite and fix failures (no new files; evidence for SC-001..SC-006)
+- [X] T031 [P] Verify type hints on all public layer boundaries (contracts, use-case inputs/outputs) in files under src/blogspeclab/core/
+- [X] T032 [P] Validate quickstart.md end-to-end flow per specs/001-simple-blog-post/quickstart.md
+- [X] T033 Update AGENTS.md §7 with real install/run/test commands in AGENTS.md
+- [X] T034 Run full pytest suite and fix failures (no new files; evidence for SC-001..SC-006)
 
 ---
 

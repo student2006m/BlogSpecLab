@@ -84,11 +84,27 @@ If a behavioral change is requested but the corresponding `Specification` is mis
 
 ## 7. Build and Test
 
-The current `Repository` does not yet contain a `Python` project, a `pyproject.toml` file, or a test project.
+Verified commands (Windows PowerShell; run from the repository root):
 
-Therefore no assumed commands for installing dependencies, running `Flask`, `Lint`, or `Test` are recorded in this file.
+```powershell
+python -m venv .venv
+.\.venv\Scripts\Activate.ps1
+pip install -e ".[dev]"
+```
 
-Once the project is created, the package and test structure plus the valid commands for dependency installation, run, `Lint`, and `Test` MUST be added to this section.
+Run the app (requires `DATABASE_PATH`; demo users via `BLOGSPECLAB_SEED_USERS`,
+session signing via `SECRET_KEY` — values stay in the environment, never in files):
+
+```powershell
+.\.venv\Scripts\python.exe -m flask --app blogspeclab.endpoints.api.app:create_app run
+```
+
+Run tests:
+
+```powershell
+.\.venv\Scripts\python.exe -m pytest
+.\.venv\Scripts\python.exe -m pytest tests/architecture
+```
 
 `OpenCode` MUST NOT invent commands for files or packages that do not exist yet.
 
