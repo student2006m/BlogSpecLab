@@ -68,6 +68,12 @@ class MethodNotAllowedError(AppError):
     title = "Method Not Allowed"
 
 
+class ReviewAssistUnavailableError(AppError):
+    status = 503
+    code = "REVIEW_ASSIST_UNAVAILABLE"
+    title = "Review Assist Unavailable"
+
+
 def problem_response(error: AppError) -> tuple[Any, int]:
     """Render one Problem Details body (never includes secrets or traces)."""
     payload = {

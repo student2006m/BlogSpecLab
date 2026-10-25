@@ -89,3 +89,16 @@ class Clock(Protocol):
     def now(self) -> datetime:
         """Return the current UTC time."""
         ...
+
+
+class ReviewAssistProvider(Protocol):
+    """Contract for the smart review engine (feature `002-review-assist`).
+
+    Implementations (e.g. `infra.ai`) perform transport and raw JSON
+    parsing only; the record they return is UNTRUSTED and gets re-validated
+    in `core`.
+    """
+
+    def review_post(self, title: str, content: str) -> dict[str, Any]:
+        """Return the parsed structured assessment record for one text."""
+        ...

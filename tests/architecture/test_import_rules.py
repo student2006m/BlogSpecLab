@@ -123,9 +123,16 @@ def test_import_rules() -> None:
                 f" (§II.5): {sorted(others)}"
             )
 
+    # infra.* subpackages endpoint composition may wire (Constitution §II.4).
+    # Grown by approved features: 001 → infra.data_access, 002 → infra.ai.
     api_deps = edges.get("endpoints.api", set()) - {"endpoints.api"}
-    assert api_deps <= {"core.application", "infra.data_access"}, (
-        "endpoints.api MAY import only core.application and infra.* (§II.4):"
+    assert api_deps <= {
+        "core.application",
+        "infra.data_access",
+        "infra.ai",
+    }, (
+        "endpoints.api MAY import only core.application and required infra.*"
+        " (§II.4):"
         f" {sorted(api_deps)}"
     )
 
