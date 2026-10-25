@@ -74,7 +74,39 @@ If a behavioral change is requested but the corresponding `Specification` is mis
 - Do not rewrite healthy, unrelated files.
 - When several solutions exist, prefer the simpler one compatible with the `Constitution`, unless the requirement dictates otherwise.
 
-## 6. Language and Documentation Style
+## 6. Working Modes
+
+Two working modes exist. The user selects the mode for a request; when the mode is not stated, report the two options and ask before starting.
+
+### Default Mode
+
+Work runs end to end through the full `SDD` cycle (`Specify`, `Clarify`, `Plan`, `Tasks`, `Implement`, validation) in one go, without stopping between stages. `OpenCode` drives all stages itself or delegates single phases to the `implementer` subagent, uses the `reviewer` subagent on completed phases, and reports one final summary at the end.
+
+### Workshop Mode
+
+Work follows the same `SDD` cycle but stops at each stage boundary:
+
+1. Complete one stage (for example, `Specify`, or one implementation phase).
+2. Hand the result over to the `implementer` subagent when the stage is implementation, and ask questions whenever a real ambiguity appears.
+3. Report the stage result and WAIT. Do not start any further work until the user explicitly says to continue (e.g. after `Specify` is finished, stop and wait).
+
+### Subagents
+
+Both modes use the two project-local `OpenCode` agents:
+
+| Agent | File | Role |
+|---|---|---|
+| `implementer` | `.opencode/agents/implementer.md` | Implements ONLY the task IDs assigned to it, following the `SDD` workflow |
+| `reviewer` | `.opencode/agents/reviewer.md` | Read-only review of changes; reports findings with a verdict, never edits files |
+
+Rules in both modes:
+
+- The primary `OpenCode` session assigns task IDs and coordinates; a subagent MUST NOT start the next task, phase, or `Feature`.
+- In `Workshop Mode`, subagent success is not approval: the user approves each stage.
+- Run `reviewer` before presenting a completed implementation phase to the user; its verdict does not replace user approval.
+- Rules in section 5 apply to subagent output as well.
+
+## 7. Language and Documentation Style
 
 - All project textual artifacts and documentation MUST be written in English.
 - Class, function, method, module, package names, and all other code `Identifier`s MUST be in English.
@@ -82,7 +114,7 @@ If a behavioral change is requested but the corresponding `Specification` is mis
 - Code and technical naming MUST NOT be localized.
 - Descriptions MUST be precise and concise; avoid duplicated documentation.
 
-## 7. Build and Test
+## 8. Build and Test
 
 Verified commands (Windows PowerShell; run from the repository root):
 
@@ -108,7 +140,7 @@ Run tests:
 
 `OpenCode` MUST NOT invent commands for files or packages that do not exist yet.
 
-## 8. Evolution of AGENTS.md
+## 9. Evolution of AGENTS.md
 
 This file is a living operational document and MUST evolve with the `Repository`.
 
